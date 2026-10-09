@@ -4,9 +4,9 @@ Aplikasi kuis pilihan ganda Flutter untuk UTS Lab Praktikum Pemrograman Mobile.
 
 ## Identitas
 
-- Nama: **[Isi nama lengkap]**
-- NIM: **[Isi NIM]**
-- Lab: **[Isi nama/nomor lab]**
+- Nama: **David Jonathan Simanjuntak**
+- NIM: **241401121**
+- Lab: **Lab Pemrograman Mobile 1**
 
 ## Informasi aplikasi
 
