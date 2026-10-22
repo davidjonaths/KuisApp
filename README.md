@@ -18,6 +18,7 @@ Aplikasi kuis pilihan ganda Flutter untuk UTS Lab Praktikum Pemrograman Mobile.
 - Tiga topik kuis lokal: Pengetahuan Umum, Teknologi, serta Sains & Alam.
 - Lima soal pilihan ganda per topik, indikator progres, dan penjelasan jawaban.
 - Skor, jumlah jawaban benar, persentase nilai, serta opsi untuk bermain kembali.
+- Tinjau semua jawaban setelah kuis, lengkap dengan kunci jawaban dan penjelasan.
 - Navigasi beranda → kuis → hasil; progres dikelola terpusat dan tetap ada saat rotasi atau kembali ke beranda.
 - Mode terang/gelap.
 - Tampilan adaptif untuk ponsel, tablet, dan browser.

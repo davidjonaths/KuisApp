@@ -68,5 +68,14 @@ void main() {
     expect(find.text('Sempurna!'), findsOneWidget);
     expect(find.text('100%'), findsOneWidget);
     expect(find.text('5'), findsWidgets);
+
+    await tester.tap(find.text('Tinjau jawaban'));
+    await tester.pumpAndSettle();
+    expect(find.text('Tinjau jawaban'), findsOneWidget);
+    expect(find.text('Apa ibu kota negara Jepang?'), findsOneWidget);
+    expect(
+      find.text('Tokyo adalah ibu kota sekaligus kota terpadat di Jepang.'),
+      findsOneWidget,
+    );
   });
 }

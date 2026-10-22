@@ -11,6 +11,7 @@ class QuizController extends ChangeNotifier {
   int currentQuestionIndex = 0;
   int? selectedAnswerIndex;
   int correctAnswers = 0;
+  final List<int?> _selectedAnswers = [];
   bool isComplete = false;
   bool isInProgress = false;
 
@@ -22,6 +23,8 @@ class QuizController extends ChangeNotifier {
   bool get hasAnswered => selectedAnswerIndex != null;
 
   bool get isLastQuestion => currentQuestionIndex == questionCount - 1;
+
+  List<int?> get selectedAnswers => List.unmodifiable(_selectedAnswers);
 
   void toggleTheme() {
     themeMode.value = themeMode.value == ThemeMode.light
@@ -46,6 +49,9 @@ class QuizController extends ChangeNotifier {
     currentQuestionIndex = 0;
     selectedAnswerIndex = null;
     correctAnswers = 0;
+    _selectedAnswers
+      ..clear()
+      ..addAll(List<int?>.filled(questionCount, null));
     isComplete = false;
     isInProgress = true;
     notifyListeners();
@@ -54,6 +60,7 @@ class QuizController extends ChangeNotifier {
   void selectAnswer(int answerIndex) {
     if (hasAnswered || isComplete) return;
     selectedAnswerIndex = answerIndex;
+    _selectedAnswers[currentQuestionIndex] = answerIndex;
     if (answerIndex ==
         selectedTopic.questions[currentQuestionIndex].answerIndex) {
       correctAnswers++;
@@ -77,6 +84,7 @@ class QuizController extends ChangeNotifier {
     currentQuestionIndex = 0;
     selectedAnswerIndex = null;
     correctAnswers = 0;
+    _selectedAnswers.clear();
     isComplete = false;
     isInProgress = false;
     notifyListeners();

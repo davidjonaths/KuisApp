@@ -24,14 +24,17 @@ void main() {
     controller.selectAnswer(0);
     expect(controller.correctAnswers, 0);
     expect(controller.hasAnswered, isTrue);
+    expect(controller.selectedAnswers.first, 0);
 
     controller.selectAnswer(1);
     expect(controller.correctAnswers, 0);
     expect(controller.selectedAnswerIndex, 0);
+    expect(controller.selectedAnswers.first, 0);
 
     controller.advanceQuestion();
     expect(controller.currentQuestionIndex, 1);
     expect(controller.selectedAnswerIndex, isNull);
+    expect(controller.selectedAnswers.first, 0);
   });
 
   test('finishes the quiz with its total correct answers', () {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../app/quiz_scope.dart';
 import '../widgets/primary_button.dart';
 import 'quiz_screen.dart';
+import 'review_screen.dart';
 
 class ResultScreen extends StatelessWidget {
   const ResultScreen({super.key});
@@ -139,6 +140,24 @@ class ResultScreen extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 24),
+                      OutlinedButton.icon(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute<void>(
+                              builder: (_) => const ReviewScreen(),
+                            ),
+                          );
+                        },
+                        icon: const Icon(Icons.fact_check_outlined),
+                        label: const Text('Tinjau jawaban'),
+                        style: OutlinedButton.styleFrom(
+                          minimumSize: const Size.fromHeight(50),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 12),
                       PrimaryButton(
                         label: 'Main lagi',
                         icon: Icons.replay_rounded,
