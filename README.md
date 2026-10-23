@@ -1,61 +1,89 @@
-# RuangKuis
+<div align="center">
+  <img src="assets/images/quiz_hero.svg" alt="Ilustrasi RuangKuis" width="340">
 
-Aplikasi kuis pilihan ganda Flutter untuk UTS Lab Praktikum Pemrograman Mobile.
+  # RuangKuis
 
-## Identitas
+  **Kuis singkat, wawasan baru.**
 
-- Nama: **David Jonathan Simanjuntak**
-- NIM: **241401121**
-- Lab: **Lab Pemrograman Mobile 1**
+  Aplikasi kuis pilihan ganda lintas platform, dibuat dengan Flutter untuk UTS
+  Lab Praktikum Pemrograman Mobile.
+</div>
 
-## Informasi aplikasi
+<br>
 
-**Nama aplikasi:** RuangKuis  
-**Deskripsi:** Aplikasi kuis interaktif yang meminta nama pemain, menyediakan pilihan topik, memberikan umpan balik jawaban, dan menampilkan skor akhir.
+## Profil Mahasiswa
 
-### Fitur
+| Keterangan | Detail |
+| --- | --- |
+| Nama | David Jonathan Simanjuntak |
+| NIM | 241401121 |
+| Lab | Lab Pemrograman Mobile 1 |
 
-- Tiga topik kuis lokal: Pengetahuan Umum, Teknologi, serta Sains & Alam.
-- Urutan soal diacak pada setiap sesi kuis.
-- Lima soal pilihan ganda per topik, indikator progres, dan penjelasan jawaban.
-- Skor, jumlah jawaban benar, persentase nilai, serta opsi untuk bermain kembali.
-- Tinjau semua jawaban setelah kuis, lengkap dengan kunci jawaban dan penjelasan.
-- Navigasi beranda → kuis → hasil; progres dikelola terpusat dan tetap ada saat rotasi atau kembali ke beranda.
-- Mode terang/gelap.
-- Tampilan adaptif untuk ponsel, tablet, dan browser.
-- Widget antarmuka reusable, ilustrasi SVG lokal, dan font Manrope lokal.
+## Tentang Aplikasi
 
-## Menjalankan aplikasi
+RuangKuis mengajak pemain menguji pengetahuan melalui kuis lokal yang ringan
+dan interaktif. Masukkan nama, pilih topik, jawab pertanyaan, lalu lihat skor
+beserta pembahasan untuk setiap soal.
 
-Pastikan Flutter SDK terpasang, lalu jalankan:
+## Fitur
+
+- **Tiga topik kuis:** Pengetahuan Umum, Teknologi, dan Sains & Alam.
+- **Soal diacak per sesi:** urutan soal berbeda setiap kali kuis dimulai.
+- **Progres dan skor langsung:** lihat perjalanan kuis dan jumlah jawaban benar.
+- **Pembahasan jawaban:** tinjau pilihan, kunci jawaban, dan penjelasan setelah
+  menyelesaikan kuis.
+- **Progres tersimpan selama sesi:** jawaban tetap tersedia saat kembali ke
+  kuis atau membuka halaman hasil dan tinjauan.
+- **Light dan Dark Mode:** pilih tampilan sesuai kenyamanan.
+- **Tampilan adaptif:** mendukung ukuran layar ponsel, tablet, dan browser.
+- **Aset lokal:** ilustrasi SVG dan font Manrope disertakan di proyek.
+
+## Tampilan
+
+Ilustrasi lokal aplikasi:
+
+![Ilustrasi RuangKuis](assets/images/quiz_hero.svg)
+
+## Teknologi
+
+- Flutter dan Dart
+- Material 3
+- State terpusat dengan `ChangeNotifier` dan `InheritedNotifier`
+- Font Manrope dan ilustrasi SVG lokal
+
+## Menjalankan Proyek
+
+Pastikan Flutter SDK sudah terpasang, kemudian dari direktori proyek jalankan:
 
 ```bash
 flutter pub get
 flutter run
 ```
 
-Untuk menjalankan versi web:
+Untuk menjalankan aplikasi di browser Chrome:
 
 ```bash
 flutter run -d chrome
 ```
 
-Untuk memeriksa analisis dan tes:
+## Pemeriksaan Kualitas
 
 ```bash
 flutter analyze
 flutter test
 ```
 
-## Struktur utama
+## Struktur Direktori
 
-- `lib/app/`: pengelola state, scope, dan tema.
-- `lib/data/`: bank soal dan topik.
-- `lib/models/`: model soal dan topik.
-- `lib/screens/`: halaman beranda, kuis, dan hasil.
-- `lib/widgets/`: komponen UI yang dapat digunakan ulang.
-- `assets/`: ilustrasi dan font aplikasi.
-
-## Catatan GitHub
-
-Repositori ini disiapkan untuk pengembangan bertahap dengan commit terpisah per fitur. Setelah identitas dilengkapi, buat repositori GitHub milik mahasiswa dan hubungkan sebagai remote sebelum push.
+```text
+lib/
+├── app/        # Pengelola state, scope, dan tema
+├── data/       # Bank soal dan topik kuis
+├── models/     # Model pertanyaan dan topik
+├── screens/    # Halaman beranda, kuis, hasil, dan tinjauan
+└── widgets/    # Komponen UI reusable
+assets/
+├── fonts/      # Font Manrope dan lisensinya
+└── images/     # Ilustrasi aplikasi
+test/           # Tes controller dan alur aplikasi
+```
