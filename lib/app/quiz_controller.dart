@@ -1,9 +1,15 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import '../data/quiz_data.dart';
+import '../models/quiz_question.dart';
 import '../models/quiz_topic.dart';
 
 class QuizController extends ChangeNotifier {
+  QuizController({Random? random}) : _random = random ?? Random();
+
+  final Random _random;
   final ValueNotifier<ThemeMode> themeMode = ValueNotifier(ThemeMode.light);
 
   String playerName = '';
@@ -11,6 +17,7 @@ class QuizController extends ChangeNotifier {
   int currentQuestionIndex = 0;
   int? selectedAnswerIndex;
   int correctAnswers = 0;
+  List<QuizQuestion> _questions = [];
   final List<int?> _selectedAnswers = [];
   bool isComplete = false;
   bool isInProgress = false;
@@ -18,7 +25,11 @@ class QuizController extends ChangeNotifier {
   QuizTopic get selectedTopic =>
       quizTopics.firstWhere((topic) => topic.id == selectedTopicId);
 
-  int get questionCount => selectedTopic.questions.length;
+  List<QuizQuestion> get questions => List.unmodifiable(
+    _questions.isEmpty ? selectedTopic.questions : _questions,
+  );
+
+  int get questionCount => questions.length;
 
   bool get hasAnswered => selectedAnswerIndex != null;
 
@@ -46,6 +57,7 @@ class QuizController extends ChangeNotifier {
   void startQuiz({required String name, required String topicId}) {
     playerName = name.trim();
     selectedTopicId = topicId;
+    _questions = List.of(selectedTopic.questions)..shuffle(_random);
     currentQuestionIndex = 0;
     selectedAnswerIndex = null;
     correctAnswers = 0;
@@ -61,8 +73,7 @@ class QuizController extends ChangeNotifier {
     if (hasAnswered || isComplete) return;
     selectedAnswerIndex = answerIndex;
     _selectedAnswers[currentQuestionIndex] = answerIndex;
-    if (answerIndex ==
-        selectedTopic.questions[currentQuestionIndex].answerIndex) {
+    if (answerIndex == _questions[currentQuestionIndex].answerIndex) {
       correctAnswers++;
     }
     notifyListeners();

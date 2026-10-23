@@ -14,7 +14,7 @@ class QuizScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = QuizScope.of(context);
     final topic = controller.selectedTopic;
-    final question = topic.questions[controller.currentQuestionIndex];
+    final question = controller.questions[controller.currentQuestionIndex];
     final colors = Theme.of(context).colorScheme;
     final isWide = MediaQuery.sizeOf(context).width >= 760;
     final horizontalPadding = (MediaQuery.sizeOf(context).width * 0.06).clamp(
@@ -219,6 +219,26 @@ class _ProgressHeader extends StatelessWidget {
             backgroundColor: colors.onSurface.withValues(alpha: 0.08),
             color: colors.primary,
           ),
+        ),
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            Icon(
+              Icons.shuffle_rounded,
+              size: 15,
+              color: colors.onSurfaceVariant,
+            ),
+            const SizedBox(width: 6),
+            Expanded(
+              child: Text(
+                'Urutan soal diacak untuk sesi ini',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.labelSmall
+                    ?.copyWith(color: colors.onSurfaceVariant),
+              ),
+            ),
+          ],
         ),
       ],
     );

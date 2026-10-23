@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kuis_app/app/quiz_controller.dart';
@@ -39,7 +41,7 @@ void main() {
 
   test('finishes the quiz with its total correct answers', () {
     controller.startQuiz(name: 'Naya', topicId: 'technology');
-    final questions = controller.selectedTopic.questions;
+    final questions = controller.questions;
 
     for (var i = 0; i < questions.length; i++) {
       controller.selectAnswer(questions[i].answerIndex);
@@ -51,6 +53,35 @@ void main() {
     expect(controller.isComplete, isTrue);
     expect(controller.isInProgress, isFalse);
     expect(controller.correctAnswers, questions.length);
+  });
+
+  test('shuffles questions and keeps answers aligned for review', () {
+    controller.dispose();
+    controller = QuizController(random: Random(7));
+    controller.startQuiz(name: 'Naya', topicId: 'general');
+
+    final shuffledQuestions = controller.questions;
+    final originalQuestions = controller.selectedTopic.questions;
+    expect(shuffledQuestions.toSet(), originalQuestions.toSet());
+    expect(shuffledQuestions, isNot(equals(originalQuestions)));
+
+    for (var index = 0; index < shuffledQuestions.length; index++) {
+      final question = shuffledQuestions[index];
+      final selectedAnswer = index.isEven
+          ? question.answerIndex
+          : (question.answerIndex + 1) % question.options.length;
+      controller.selectAnswer(selectedAnswer);
+      controller.advanceQuestion();
+    }
+
+    expect(controller.selectedAnswers, [
+      for (var index = 0; index < shuffledQuestions.length; index++)
+        index.isEven
+            ? shuffledQuestions[index].answerIndex
+            : (shuffledQuestions[index].answerIndex + 1) %
+                  shuffledQuestions[index].options.length,
+    ]);
+    expect(controller.correctAnswers, (shuffledQuestions.length + 1) ~/ 2);
   });
 
   test('locks topic changes during a quiz and toggles the app theme', () {

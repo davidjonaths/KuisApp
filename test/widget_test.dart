@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kuis_app/app/quiz_scope.dart';
 import 'package:kuis_app/data/quiz_data.dart';
 import 'package:kuis_app/main.dart';
+import 'package:kuis_app/screens/quiz_screen.dart';
 
 void main() {
   testWidgets('player can start a quiz and resume its saved answer', (
@@ -20,8 +22,12 @@ void main() {
     await tester.tap(find.text('Mulai kuis'));
     await tester.pumpAndSettle();
 
-    expect(find.text('Apa ibu kota negara Jepang?'), findsOneWidget);
-    await tester.tap(find.text('Tokyo'));
+    final controller = QuizScope.of(tester.element(find.byType(QuizScreen)));
+    final firstQuestion = controller.questions.first;
+    expect(find.text(firstQuestion.prompt), findsOneWidget);
+    await tester.tap(
+      find.text(firstQuestion.options[firstQuestion.answerIndex]),
+    );
     await tester.pumpAndSettle();
     expect(find.text('Tepat sekali!'), findsOneWidget);
 
@@ -33,6 +39,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Tepat sekali!'), findsOneWidget);
     expect(find.text('1'), findsOneWidget);
+    expect(find.text('Urutan soal diacak untuk sesi ini'), findsOneWidget);
   });
 
   testWidgets('finishing all questions shows the final score', (tester) async {
@@ -49,8 +56,9 @@ void main() {
     await tester.tap(find.text('Mulai kuis'));
     await tester.pumpAndSettle();
 
-    for (var index = 0; index < quizTopics.first.questions.length; index++) {
-      final question = quizTopics.first.questions[index];
+    final controller = QuizScope.of(tester.element(find.byType(QuizScreen)));
+    for (var index = 0; index < controller.questionCount; index++) {
+      final question = controller.questions[index];
       await tester.ensureVisible(
         find.text(question.options[question.answerIndex]),
       );
@@ -72,10 +80,7 @@ void main() {
     await tester.tap(find.text('Tinjau jawaban'));
     await tester.pumpAndSettle();
     expect(find.text('Tinjau jawaban'), findsOneWidget);
-    expect(find.text('Apa ibu kota negara Jepang?'), findsOneWidget);
-    expect(
-      find.text('Tokyo adalah ibu kota sekaligus kota terpadat di Jepang.'),
-      findsOneWidget,
-    );
+    expect(find.text(controller.questions.first.prompt), findsOneWidget);
+    expect(find.text(controller.questions.first.explanation), findsOneWidget);
   });
 }

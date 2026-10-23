@@ -41,12 +41,12 @@ class ReviewScreen extends StatelessWidget {
                     ?.copyWith(color: colors.onSurfaceVariant),
               ),
               const SizedBox(height: 20),
-              for (var index = 0; index < topic.questions.length; index++)
+              for (var index = 0; index < controller.questions.length; index++)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 14),
                   child: _ReviewCard(
                     number: index + 1,
-                    question: topic.questions[index],
+                    question: controller.questions[index],
                     selectedAnswer: controller.selectedAnswers[index],
                   ),
                 ),
