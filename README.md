@@ -38,52 +38,46 @@ beserta pembahasan untuk setiap soal.
 - **Tampilan adaptif:** mendukung ukuran layar ponsel, tablet, dan browser.
 - **Aset lokal:** ilustrasi SVG dan font Manrope disertakan di proyek.
 
-## Tampilan
+# Dokumentasi KuisApp
 
-Ilustrasi lokal aplikasi:
+KuisApp adalah aplikasi kuis interaktif berbasis Flutter yang menguji pengetahuan pengguna dalam berbagai topik dengan antarmuka yang responsif dan fitur ulasan jawaban.
 
-![Ilustrasi RuangKuis](assets/images/quiz_hero.svg)
+---
 
-## Teknologi
+## i. Credit & Sumber Aset (Attribution)
 
-- Flutter dan Dart
-- Material 3
-- State terpusat dengan `ChangeNotifier` dan `InheritedNotifier`
-- Font Manrope dan ilustrasi SVG lokal
+Aplikasi ini menggunakan beberapa aset pihak ketiga (gambar dan font) yang bebas lisensi atau bersifat *open-source*. Berikut adalah atribusi untuk aset yang digunakan:
 
-## Menjalankan Proyek
+1. UI Icons: Material Icons bawaan Flutter
+2. Font Kustom: Google Fonts (Poppins) via paket google_fonts
+3. State Management: Provider via paket provider
 
-Pastikan Flutter SDK sudah terpasang, kemudian dari direktori proyek jalankan:
+---
 
-```bash
-flutter pub get
-flutter run
-```
+## ii. Tangkapan Layar (Screenshots) Aplikasi
 
-Untuk menjalankan aplikasi di browser Chrome:
+Berikut adalah tampilan dari setiap halaman aplikasi KuisApp saat dijalankan:
 
-```bash
-flutter run -d chrome
-```
+### 1. Home Screen (Halaman Utama)
+Halaman awal saat aplikasi dibuka, menampilkan hero image dan daftar topik kuis yang tersedia.
+<img width="1080" height="2424" alt="Screenshot_20261023_141249" src="https://github.com/user-attachments/assets/eb058b38-4b11-4f7b-a056-68aeb8270195" />
 
-## Pemeriksaan Kualitas
+### 2. Quiz Screen (Halaman Kuis)
+Halaman di mana pengguna menjawab pertanyaan pilihan ganda. Menampilkan indikator soal, pertanyaan, dan opsi jawaban.
+<img width="1080" height="2424" alt="Screenshot_20261023_141315" src="https://github.com/user-attachments/assets/3854aef0-92bd-47b3-ad6a-62e2498ceae1" />
 
-```bash
-flutter analyze
-flutter test
-```
+### 3. Result Screen (Halaman Hasil)
+Halaman yang muncul setelah kuis selesai. Menampilkan ringkasan dan total skor akhir pengguna.
+<img width="1080" height="2424" alt="Screenshot_20261023_141327" src="https://github.com/user-attachments/assets/6a4cd9c2-1a6e-44fa-8d75-b0de1cf19c34" />
 
-## Struktur Direktori
+### 4. Review Screen (Halaman Ulasan Jawaban) - *Fitur Tambahan*
+Halaman evaluasi yang menampilkan detail jawaban yang dipilih pengguna dibandingkan dengan jawaban yang benar (ditandai dengan warna merah untuk salah, dan hijau untuk benar).
+<img width="1080" height="2424" alt="Screenshot_20261023_141336" src="https://github.com/user-attachments/assets/10351254-e4f7-4ff1-a668-deb6af937102" />
 
-```text
-lib/
-├── app/        # Pengelola state, scope, dan tema
-├── data/       # Bank soal dan topik kuis
-├── models/     # Model pertanyaan dan topik
-├── screens/    # Halaman beranda, kuis, hasil, dan tinjauan
-└── widgets/    # Komponen UI reusable
-assets/
-├── fonts/      # Font Manrope dan lisensinya
-└── images/     # Ilustrasi aplikasi
-test/           # Tes controller dan alur aplikasi
-```
+---
+
+## iii. Link mockup/prototype Aplikasi
+[ https://www.figma.com/design/4ED8lQI6YxE9I6TeqCExY2/KuisApp-UTS-241401121?node-id=2-172&t=B1AI3n3RhqiDlA6j-1 ]
+
+## iv. Link video presentasi (google drive)Link video presentasi (google drive)
+[ https://drive.google.com/file/d/1qcn4JHIZtQDIFGnL8azyTAcUsvlWKSOB/view?usp=sharing ]
