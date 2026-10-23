@@ -1,0 +1,109 @@
+import 'dart:math';
+
+import 'package:flutter/material.dart';
+
+import '../data/quiz_data.dart';
+import '../models/quiz_question.dart';
+import '../models/quiz_topic.dart';
+
+class QuizController extends ChangeNotifier {
+  QuizController({Random? random}) : _random = random ?? Random();
+
+  final Random _random;
+  final ValueNotifier<ThemeMode> themeMode = ValueNotifier(ThemeMode.light);
+
+  String playerName = '';
+  String selectedTopicId = quizTopics.first.id;
+  int currentQuestionIndex = 0;
+  int? selectedAnswerIndex;
+  int correctAnswers = 0;
+  List<QuizQuestion> _questions = [];
+  final List<int?> _selectedAnswers = [];
+  bool isComplete = false;
+  bool isInProgress = false;
+
+  QuizTopic get selectedTopic =>
+      quizTopics.firstWhere((topic) => topic.id == selectedTopicId);
+
+  List<QuizQuestion> get questions => List.unmodifiable(
+    _questions.isEmpty ? selectedTopic.questions : _questions,
+  );
+
+  int get questionCount => questions.length;
+
+  bool get hasAnswered => selectedAnswerIndex != null;
+
+  bool get isLastQuestion => currentQuestionIndex == questionCount - 1;
+
+  List<int?> get selectedAnswers => List.unmodifiable(_selectedAnswers);
+
+  void toggleTheme() {
+    themeMode.value = themeMode.value == ThemeMode.light
+        ? ThemeMode.dark
+        : ThemeMode.light;
+  }
+
+  void updatePlayerName(String value) {
+    playerName = value;
+  }
+
+  void selectTopic(String topicId) {
+    if (!isInProgress && quizTopics.any((topic) => topic.id == topicId)) {
+      selectedTopicId = topicId;
+      notifyListeners();
+    }
+  }
+
+  void startQuiz({required String name, required String topicId}) {
+    playerName = name.trim();
+    selectedTopicId = topicId;
+    _questions = List.of(selectedTopic.questions)..shuffle(_random);
+    currentQuestionIndex = 0;
+    selectedAnswerIndex = null;
+    correctAnswers = 0;
+    _selectedAnswers
+      ..clear()
+      ..addAll(List<int?>.filled(questionCount, null));
+    isComplete = false;
+    isInProgress = true;
+    notifyListeners();
+  }
+
+  void selectAnswer(int answerIndex) {
+    if (hasAnswered || isComplete) return;
+    selectedAnswerIndex = answerIndex;
+    _selectedAnswers[currentQuestionIndex] = answerIndex;
+    if (answerIndex == _questions[currentQuestionIndex].answerIndex) {
+      correctAnswers++;
+    }
+    notifyListeners();
+  }
+
+  void advanceQuestion() {
+    if (!hasAnswered || isComplete) return;
+    if (isLastQuestion) {
+      isComplete = true;
+      isInProgress = false;
+    } else {
+      currentQuestionIndex++;
+      selectedAnswerIndex = null;
+    }
+    notifyListeners();
+  }
+
+  void resetQuiz() {
+    currentQuestionIndex = 0;
+    selectedAnswerIndex = null;
+    correctAnswers = 0;
+    _selectedAnswers.clear();
+    isComplete = false;
+    isInProgress = false;
+    notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    themeMode.dispose();
+    super.dispose();
+  }
+}
