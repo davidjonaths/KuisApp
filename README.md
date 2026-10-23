@@ -1,6 +1,3 @@
-<div align="center">
-  <img src="assets/images/quiz_hero.svg" alt="Ilustrasi RuangKuis" width="340">
-
   # RuangKuis
 
   **Kuis singkat, wawasan baru.**
